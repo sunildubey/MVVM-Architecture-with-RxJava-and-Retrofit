@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVVM Architecture</string>
+    <string name="error_message_loading_users">Something went Wrong</string>
+    <string name="default_message_loading_users">Please wait..</string>
+</resources>
