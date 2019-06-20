@@ -20,15 +20,33 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
+/*
+ * this class belongs for Activity
+ * */
 public class AllContactViewModel extends Observable {
 
+    /**
+     * Creates an ObservableInt that depends on  @Code dependencies. Typically,
+     * ObservableField's are passed as dependencies. When any dependency
+     * notifies changes, this ObservableInt also notifies a change.
+     */
     public ObservableInt progressBar;
     public ObservableInt userRecycler;
     public ObservableInt userLabel;
+    /**
+     * An object wrapper to make it observable.
+     * Observable field classes may be used instead of creating an Observable object. It can also
+     * create a calculated field, depending on other fields:
+     * The type parameter for the actual object.
+     * android.databinding.ObservableParcelable
+     */
     public ObservableField<String> messageLabel;
 
     private List<UserContactResponse.PayloadBean.PatientListBean> userList;
     private Context context;
+    /*
+     * CompositeDisposable is just a class
+     * to keep all your disposables in the same place to you can dispose all of then at once*/
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public AllContactViewModel(@NonNull Context context) {
@@ -44,7 +62,7 @@ public class AllContactViewModel extends Observable {
 
 
     //It is "public" to show an example of test
-    public void initializeViews() {
+    private void initializeViews() {
         userLabel.set(View.GONE);
         userRecycler.set(View.GONE);
         progressBar.set(View.VISIBLE);
@@ -59,15 +77,17 @@ public class AllContactViewModel extends Observable {
                 .subscribeOn(appController.subscribeScheduler())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserContactResponse>() {
-                    @Override public void accept(UserContactResponse userResponse) throws Exception {
+                    @Override
+                    public void accept(UserContactResponse userResponse) throws Exception {
                         updateUserDataList(userResponse.getPayload().getPatientList());
                         progressBar.set(View.GONE);
                         userLabel.set(View.GONE);
                         userRecycler.set(View.VISIBLE);
                     }
                 }, new Consumer<Throwable>() {
-                    @Override public void accept(Throwable throwable) throws Exception {
-                        messageLabel.set(context.getString(R.string.error_message_loading_users)+" "+throwable.getMessage());
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        messageLabel.set(context.getString(R.string.error_message_loading_users) + " " + throwable.getMessage());
                         progressBar.set(View.GONE);
                         userLabel.set(View.VISIBLE);
                         userRecycler.set(View.GONE);

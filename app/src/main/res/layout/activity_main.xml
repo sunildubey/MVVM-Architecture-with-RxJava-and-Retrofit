@@ -2,10 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.universetelecom.mvvmprojectwithrx.view.PeopleActivity">
+    tools:context=".MainActivity">
 
+    <!--data binding with VieWModel class-->
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="contactViewModel"
             type="com.mvvm.mvvmcleanarchitecture.viewModel.AllContactViewModel" />
@@ -38,6 +41,7 @@
                     android:layout_height="wrap_content"
                     app:visibility="@{contactViewModel.progressBar}" />
 
+                <!-- binding model properties-->
                 <TextView
                     android:id="@+id/label_status"
                     android:layout_width="match_parent"
